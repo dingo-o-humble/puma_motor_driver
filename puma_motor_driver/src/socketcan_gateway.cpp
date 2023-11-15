@@ -63,7 +63,8 @@ bool SocketCANGateway::connect()
     std::cout << __PRETTY_FUNCTION__ << ": Connected to " << canbus_dev_ << std::endl;
     is_connected_ = true;
   }
-  can_msg_process_thread_ = std::thread([=] { this->process(); });  // NOLINT
+  if (is_connected_)
+    can_msg_process_thread_ = std::thread([=] { this->process(); });  // NOLINT
   return is_connected_;
 }
 
